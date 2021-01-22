@@ -12,9 +12,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        deploytool: ['operator', 'helm']
-        globalnet: ['', 'globalnet']
-        cable_driver: ['libreswan', 'strongswan', 'wireguard']
+        deploytool: ['operator']
+        globalnet: ['']
+        cable_driver: ['libreswan']
         ovn: ['', 'ovn']
         exclude:
           # Our Helm setup doesn’t know how to deploy other cable drivers
@@ -45,13 +45,13 @@ jobs:
           df -h
           free -h
 
+      - name: Debug
+        #if: ${{ matrix.cable_driver == 'libreswan' && matrix.ovn == 'ovn' }}
+        uses: mxschmitt/action-tmate@v3
+
       - name: Run E2E deployment and tests
         run: |
           make e2e using="${{ matrix.globalnet }} ${{ matrix.deploytool }} ${{ matrix.cable_driver }} ${{ matrix.ovn }}"
-
-      - name: Debug
-        if: ${{ failure() && matrix.ovn == 'ovn' }}
-        uses: mxschmitt/action-tmate@v3
 
       - name: Post mortem
         if: failure()
