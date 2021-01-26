@@ -40,7 +40,7 @@ jobs:
 
       - name: Reclaim free space
         run: |
-          # cleanup 30GB+ of tools we don't need for our CI
+          # cleanup 30GB+ of tools we don't need for our CI ... bump
           rm -rf /opt/ghc /usr/share/dotnet /usr/share/swift
           df -h
           free -h
