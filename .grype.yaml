@@ -10,3 +10,13 @@ ignore:
   - vulnerability: CVE-2021-22570
     package:
       name: google.golang.org/protobuf
+
+  # Build image Go version. Requires shipyard base image update.
+  - vulnerability: GO-2026-4970
+    package:
+      name: stdlib
+
+  # Build image Go version. Requires shipyard base image update.
+  - vulnerability: GO-2026-5856
+    package:
+      name: stdlib
